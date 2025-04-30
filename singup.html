@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nike - Become a Member</title>
+  <link href="img/image.png" rel="icon" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="css/singup.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/image.png" alt="Nike Logo" class="nike-logo">
+    </a>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <h1>BECOME A NIKE MEMBER</h1>
+    
+    <form id="signup-form">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="Email address">
+        <div class="error-message">Please enter a valid email address.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password">
+        <button type="button" class="password-toggle" id="toggle-password">SHOW</button>
+        <div class="error-message">Password must be at least 8 characters with at least one number and one letter.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Username">
+        <div class="error-message">Please enter a username.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob">
+        <div class="error-message">Please enter a valid date of birth.</div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="marketing">
+        <div>
+          <label for="marketing" class="checkbox-label">Sign up for emails to get updates from Nike on products, offers, and your Member benefits</label>
+        </div>
+      </div>
+
+      <p class="policy-text">
+        By creating an account, you agree to Nike's <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>.
+      </p>
+
+      <button type="submit">JOIN US</button>
+    </form>
+
+    <div class="member-section">
+      <p>Already a Member? <a href="login.html">Sign In</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="#">Find A Store</a></li>
+                <li><a href="#">Become A Member</a></li>
+                <li><a href="#"> Send Us Feedback</a></li>
+               
+            </ul>
+
+        </div>
+
+        <div class="footer-column">
+            <h3>GET HELP</h3>
+            <ul>
+                <li><a href="#">Order Status</a></li>
+                <li><a href="#">Shipping and Delivery</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">Payment Options</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>ABOUT NIKE</h3>
+            <ul>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Investors</a></li>
+                <li><a href="#">Purpose</a></li>
+                <li><a href="#">Sustainability</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <div class="social-links">
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook" style="color: #ffffff;"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"
+                        style="color: #ffffff;"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" style="color: #ffffff;"></i></a>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <div class="location">
+                <span>INDIA</span>
+            </div>
+            <div style="color:white;font-weight: 500;">@ 2025 Nike, Inc. All Rights Reserved</div>
+        </div>
+    </div>
+</footer>
+
+ <script src="js/singup.js"></script>
+ <script src="js/user-profile.js"></script>
+</body>
+</html>

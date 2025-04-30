@@ -1,0 +1,335 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f5f5f5;
+          }
+        
+          .logo .nike-logo {
+            height: 40px;
+            width: auto;
+            display: block;
+          }
+        
+
+        .header1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .quick-assists {
+            margin-bottom: 30px;
+            margin-left: 150px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 20px 0;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-left: 150px;
+        }
+
+        .help-category {
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .link-list {
+            list-style-type: none;
+        }
+
+        .link-list li {
+            margin-bottom: 12px;
+        }
+
+        .link-list a {
+            color: #111;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .link-list a:hover {
+            text-decoration: underline;
+        }
+
+        .view-all {
+            color: #111;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .help-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Contact us */
+        .nike-container {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styles */
+        .contact-header {
+            font-size: 24px;
+            font-weight: 500;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 40px;
+        }
+
+        /* Contact options container */
+        .contact-options-wrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+
+        }
+
+        /* Individual contact option */
+        .contact-option-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 33%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Icon container */
+        .contact-icon-container {
+            margin-bottom: 20px;
+        }
+
+        /* Icon styles */
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Contact method title */
+        .contact-method-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        /* Contact details */
+        .contact-detail-text {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Hours text */
+        .hours-availability {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Days text */
+        .days-availability {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .contact-options-wrapper {
+                flex-direction: column;
+            }
+            
+            .contact-option-box {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+
+        footer {
+            background-color: #111;
+            color: #fff;
+            width: 100% !important;
+            margin: 0 0 0 0 !important;
+            padding: 40px 20px;
+            font-size: 12px;
+            margin-top: 20px;
+          }
+          
+          .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+          }
+          
+          .footer-column {
+            width: 25%;
+            min-width: 200px;
+            margin-bottom: 30px;
+          }
+          
+          .footer-column h3 {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #fff;
+           
+          }
+          
+          .footer-column ul {
+            list-style: none;
+          }
+          
+          .footer-column li {
+            margin-bottom: 12px;
+          }
+          
+          .footer-column a {
+            color: #757575;
+            text-decoration: none;
+          }
+          
+          .footer-column a:hover {
+            color: #fff;
+          }
+          
+          .copyright {
+            width: 100%;
+            margin-top: 30px;
+            color: #757575;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+          }
+          
+          .location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+            font-weight: 500;
+          }
+          
+          .location span {
+            margin-left: 8px;
+          }
+          
+          .social-links {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+          }
+          
+          .social-links a {
+            color: #757575;
+            text-decoration: none;
+            font-size: 24px;
+          }
+          
+          .social-links a:hover {
+            color: #fff;
+          }
+          
+          @media (max-width: 768px) {
+            .footer-column {
+              width: 50%;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .footer-column {
+              width: 100%;
+            }
+          
+            h1 {
+              font-size: 24px;
+            }
+          }

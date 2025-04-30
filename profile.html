@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 10px;
+    z-index: 1000;
+    min-width: 200px;
+}
+
+#profile-dropdown.active {
+    display: block;
+}
+
+#profile-container {
+    position: relative;
+}
+
+#profile-link {
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div id="nav-container">
+        <!-- Login link (shown when logged out) -->
+        <a href="login.html" id="login-link">Login</a>
+        
+        <!-- Profile container (shown when logged in) -->
+        <div id="profile-container" style="display: none;">
+            <a href="#" id="profile-link">
+                <img src="profile-icon.png" alt="Profile" />
+            </a>
+            
+            <!-- Dropdown menu -->
+            <div id="profile-dropdown">
+                <div class="profile-info">
+                    <h4 id="profile-name">User</h4>
+                    <p id="profile-email">user@example.com</p>
+                </div>
+                <div class="dropdown-actions">
+                    <a href="account.html">My Account</a>
+                    <a href="#" id="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/user-profile.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

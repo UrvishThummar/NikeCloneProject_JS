@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Nike Store</title>
+    <link href="img/image.png" rel="icon" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/find.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/image.png" alt="Nike Logo" class="nike-logo">
+            </a>
+
+        </div>
+    </header>
+    <div id="header1">
+        <h1>Find a Nike Store</h1>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="Search Location">
+        </div>
+    </div>
+
+    <div class="stores-info">
+        <span id="store-count">15 Stores Near You</span>
+        <button class="filter-btn">
+            Filter
+            <span style="font-size: 16px;">≡</span>
+        </button>
+    </div>
+
+    <div class="content">
+        <div class="stores-list" id="stores-list">
+            <!-- Store items will be dynamically added here -->
+        </div>
+
+        <div class="map-container">
+            <div id="map"><iframe
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d29371.699311471784!2d72.56960428307734!3d23.043502773270255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sNike%20Store%20!5e0!3m2!1sen!2sin!4v1744026316866!5m2!1sen!2sin"
+                    height="610" width="1126" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            <!-- <div class="controls">
+                <button class="control-btn" id="zoom-in">+</button>
+                <button class="control-btn" id="zoom-out">−</button>
+            </div> -->
+            <div class="legal">
+                <span>Maps</span> <span style="color: #999;">Legal</span>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Find A Store</a></li>
+                    <li><a href="#">Become A Member</a></li>
+                    <li><a href="#"> Send Us Feedback</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="footer-column">
+                <h3>GET HELP</h3>
+                <ul>
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Shipping and Delivery</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Payment Options</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>ABOUT NIKE</h3>
+                <ul>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Investors</a></li>
+                    <li><a href="#">Purpose</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook" style="color: #ffffff;"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"
+                            style="color: #ffffff;"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube" style="color: #ffffff;"></i></a>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <div class="location">
+                    <span>INDIA</span>
+                </div>
+                <div style="color:white;font-weight: 500;">@ 2025 Nike, Inc. All Rights Reserved</div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <script src="js/find.js"></script>
+
+
+</body>
+
+</html>

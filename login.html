@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nike</title>
+    <!-- favicon -->
+    <link href="img/image.png" rel="icon" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-logo img {
+            width: 80px;
+        }
+        
+        .form-control {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        
+        .btn-login {
+            background-color: #000;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: #333;
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .login-footer a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            background: none;
+            border: none;
+            color: #757575;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .password-toggle:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <div class="top-nav d-flex justify-content-end">
+        <div class="container-fluid">
+            <!-- Jordan Logo -->
+            <a class="navbar-brand me-5" href="index.html">
+                <img src="img/jordan logo.png" alt="Jordan Logo" class="jordan-logo">
+            </a>
+            <div class="topmenu d-flex justify-content-end">
+                <a href="find.html">Find a Store</a>
+                <a href="help.html">Help</a>
+                <a href="singup.html">Join Us</a>
+                <a href="login.html">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="container">
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="img/image.png" alt="Nike Logo">
+            </div>
+            <h2 class="text-center mb-4">Sign In</h2>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" required>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="password" required>
+                        <button type="button" class="password-toggle" id="toggle-password">SHOW</button>
+                    </div>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="remember-me">
+                    <label class="form-check-label" for="remember-me">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-login">Sign In</button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="singup.html">Join Us</a></p>
+                <p><a href="#">Forgot your password?</a></p>
+            </div>
+        </div>
+    </div>
+<!-- Add somewhere below your login form -->
+<div id="loader" style="display: none; text-align: center; margin-top: 20px;">
+    <img src="img/loading-7528.gif" alt="Loading..." style="width: 50px;">
+    <p>Logging in, please wait...</p>
+</div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/user-profile.js"></script>
+</body>
+
+</html>
