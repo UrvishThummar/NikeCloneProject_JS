@@ -85,6 +85,9 @@ function formatCVV(input) {
 function handleFormSubmit(event) {
     event.preventDefault();
 
+    // Get selected payment method
+    const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
     // Get form data
     const formData = {
         firstName: document.getElementById('firstName').value,
@@ -95,11 +98,18 @@ function handleFormSubmit(event) {
         city: document.getElementById('city').value,
         state: document.getElementById('state').value,
         zip: document.getElementById('zip').value,
-        cardNumber: document.getElementById('cardNumber').value.replace(/\s/g, ''),
-        expiry: document.getElementById('expiry').value,
-        cvv: document.getElementById('cvv').value,
-        cardName: document.getElementById('cardName').value
+        paymentMethod: paymentMethod
     };
+
+    // Add payment-specific data
+    if (paymentMethod === 'card') {
+        formData.cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        formData.expiry = document.getElementById('expiry').value;
+        formData.cvv = document.getElementById('cvv').value;
+        formData.cardName = document.getElementById('cardName').value;
+    } else if (paymentMethod === 'upi') {
+        formData.upiId = document.getElementById('upiId').value;
+    }
 
     // Validate form data
     if (!validateForm(formData)) {
@@ -129,22 +139,34 @@ function handleFormSubmit(event) {
 
 // Validate form data
 function validateForm(formData) {
-    // Basic validation
-    if (formData.cardNumber.length !== 16) {
-        showNotification('Please enter a valid card number');
-        return false;
+    switch (formData.paymentMethod) {
+        case 'card':
+            if (!formData.cardNumber || formData.cardNumber.length !== 16) {
+                showNotification('Please enter a valid card number');
+                return false;
+            }
+            if (!formData.expiry.match(/^(0[1-9]|1[0-2])\/([0-9]{2})$/)) {
+                showNotification('Please enter a valid expiry date (MM/YY)');
+                return false;
+            }
+            if (!formData.cvv || formData.cvv.length !== 3) {
+                showNotification('Please enter a valid CVV');
+                return false;
+            }
+            break;
+        case 'upi':
+            if (!formData.upiId || !formData.upiId.includes('@')) {
+                showNotification('Please enter a valid UPI ID');
+                return false;
+            }
+            break;
+        case 'cod':
+            // No additional validation needed for COD
+            break;
+        default:
+            showNotification('Please select a payment method');
+            return false;
     }
-
-    if (!formData.expiry.match(/^(0[1-9]|1[0-2])\/([0-9]{2})$/)) {
-        showNotification('Please enter a valid expiry date (MM/YY)');
-        return false;
-    }
-
-    if (formData.cvv.length !== 3) {
-        showNotification('Please enter a valid CVV');
-        return false;
-    }
-
     return true;
 }
 
