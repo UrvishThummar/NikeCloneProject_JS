@@ -117,7 +117,7 @@ function handleFormSubmit(event) {
     }
 
     // Show loading state
-    const submitButton = document.querySelector('.place-order-btn');
+    let submitButton = document.querySelector('.place-order-btn');
     submitButton.classList.add('loading');
     submitButton.disabled = true;
 
