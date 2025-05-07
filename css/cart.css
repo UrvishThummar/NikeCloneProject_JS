@@ -58,6 +58,24 @@
 .cart-item-price {
     font-weight: 600;
     color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cart-item-price .unit-price {
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+.cart-item-price .quantity {
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+.cart-item-price .total-price {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .cart-item-quantity {
@@ -96,10 +114,21 @@
     color: var(--secondary-color);
     cursor: pointer;
     transition: var(--transition);
+    background: none;
+    border: none;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .remove-item:hover {
     color: #ff0000;
+    transform: scale(1.1);
+}
+
+.remove-item i {
+    font-size: 1.1rem;
 }
 
 /* Cart Summary */

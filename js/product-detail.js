@@ -1706,8 +1706,24 @@ function showNotification(message) {
 
 // Function to add item to cart
 function addToCart(product, color, size) {
-    // Create cart item object
-    const cartItem = {
+    // Get existing cart from localStorage or initialize empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the exact same item (same product, color, and size) exists
+    const existingItem = cart.find(item => 
+        item.id === product.id && 
+        item.color === color && 
+        item.size === size
+    );
+
+    if (existingItem) {
+        // Show alert that item is already in cart
+        alert(`This item (${product.name} - Color: ${color}, Size: ${size}) is already in your cart!\nYou can adjust the quantity in the cart page.`);
+        return;
+    }
+
+    // If item doesn't exist, add it to cart
+    cart.push({
         id: product.id,
         name: product.name,
         price: product.price,
@@ -1715,30 +1731,12 @@ function addToCart(product, color, size) {
         color: color,
         size: size,
         quantity: 1
-    };
-
-    // Get existing cart from localStorage or initialize empty array
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Check if the item already exists in cart
-    const existingItemIndex = cart.findIndex(item =>
-        item.id === cartItem.id &&
-        item.color === cartItem.color &&
-        item.size === cartItem.size
-    );
-
-    if (existingItemIndex !== -1) {
-        // Update quantity if item exists
-        cart[existingItemIndex].quantity += 1;
-    } else {
-        // Add new item to cart
-        cart.push(cartItem);
-    }
+    });
 
     // Save updated cart to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Show notification
+    // Show success notification
     showNotification('Item added to cart successfully!');
 
     // Update cart count if function exists

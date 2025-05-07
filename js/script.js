@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isPaused = false;
 
     // Initialize autoplay
-    startAutoplay();
+    startAutoplay(); 
 
     // Function to start autoplay
     function startAutoplay() {

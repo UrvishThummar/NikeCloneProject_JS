@@ -857,7 +857,8 @@ function addToCart(productId) {
     // Check if product is already in cart
     const existingItem = cart.find(item => item.id == product.id);
     if (existingItem) {
-        existingItem.quantity++;
+        showNotification(`${product.name} is already in your cart!`);
+        return;
     } else {
         cart.push({
             id: product.id,
@@ -866,10 +867,15 @@ function addToCart(productId) {
             image: product.image,
             quantity: 1
         });
+        showNotification(`${product.name} added to cart!`);
     }
     // Save back to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
-    showNotification(`${product.name} added to cart!`);
+    
+    // Update cart count if the function exists
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
 }
 
 // Function to add product to wishlist

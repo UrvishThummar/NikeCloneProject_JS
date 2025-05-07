@@ -26,11 +26,13 @@ function formatPrice(price) {
 function calculateTotals() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = 0; // Free shipping
-    const total = subtotal + shipping;
+    const gst = subtotal * 0.12; // 12% GST
+    const total = subtotal + shipping + gst;
 
     return {
         subtotal,
         shipping,
+        gst,
         total
     };
 }
@@ -66,7 +68,11 @@ function updateCartDisplay() {
                         <h3 class="cart-item-name">${item.name}</h3>
                         <p class="cart-item-color">Color: ${item.color}</p>
                         <p class="cart-item-size">Size: ${item.size}</p>
-                        <p class="cart-item-price">${formatPrice(item.price)}</p>
+                        <p class="cart-item-price">
+                            <span class="unit-price">₹${item.price.toFixed(2)}</span> × 
+                            <span class="quantity">${item.quantity}</span> = 
+                            <span class="total-price">₹${(item.price * item.quantity).toFixed(2)}</span>
+                        </p>
                     </div>
                 </div>
                 <div class="cart-item-quantity">
@@ -86,12 +92,20 @@ function updateCartDisplay() {
             button.addEventListener('click', function() {
                 const index = parseInt(this.dataset.index);
                 const item = cart[index];
+                const cartItem = this.closest('.cart-item');
+                const totalPriceElement = cartItem.querySelector('.total-price');
+                const quantityElement = cartItem.querySelector('.quantity');
                 
                 if (this.classList.contains('plus')) {
                     item.quantity++;
                 } else if (this.classList.contains('minus') && item.quantity > 1) {
                     item.quantity--;
                 }
+                
+                // Update the quantity display
+                quantityElement.textContent = item.quantity;
+                // Update the total price for this item
+                totalPriceElement.textContent = `₹${(item.price * item.quantity).toFixed(2)}`;
                 
                 updateCart();
             });
@@ -102,9 +116,16 @@ function updateCartDisplay() {
             input.addEventListener('change', function() {
                 const index = parseInt(this.dataset.index);
                 const quantity = parseInt(this.value);
+                const cartItem = this.closest('.cart-item');
+                const totalPriceElement = cartItem.querySelector('.total-price');
+                const quantityElement = cartItem.querySelector('.quantity');
                 
                 if (quantity > 0) {
                     cart[index].quantity = quantity;
+                    // Update the quantity display
+                    quantityElement.textContent = quantity;
+                    // Update the total price for this item
+                    totalPriceElement.textContent = `₹${(cart[index].price * quantity).toFixed(2)}`;
                     updateCart();
                 } else {
                     this.value = cart[index].quantity;
@@ -125,6 +146,7 @@ function updateCartDisplay() {
     // Update totals
     const totals = calculateTotals();
     document.getElementById('subtotal').textContent = formatPrice(totals.subtotal);
+    document.getElementById('gst').textContent = formatPrice(totals.gst);
     document.getElementById('total').textContent = formatPrice(totals.total);
 }
 
