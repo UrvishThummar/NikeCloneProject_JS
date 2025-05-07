@@ -1401,3 +1401,20 @@ h1 {
     font-size: 1.2rem;
     margin-left: 20px;
 }
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #111;
+    color: white;
+    font-size: 0.75rem;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: none;  /* Hidden by default, shown when items exist */
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    font-weight: bold;
+}

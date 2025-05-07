@@ -10,11 +10,13 @@ function formatPrice(price) {
 function calculateTotals() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = 0; // Free shipping
-    const total = subtotal + shipping;
+    const gst = subtotal * 0.12; // 12% GST
+    const total = subtotal + shipping + gst;
 
     return {
         subtotal,
         shipping,
+        gst,
         total
     };
 }
@@ -22,7 +24,10 @@ function calculateTotals() {
 // Display order items
 function displayOrderItems() {
     const orderItems = document.getElementById('order-items');
-    if (!orderItems) return;
+    if (!orderItems) {
+        console.error('Could not find order-items element');
+        return;
+    }
 
     orderItems.innerHTML = '';
 
@@ -38,7 +43,7 @@ function displayOrderItems() {
                 <p>Color: ${item.color}</p>
                 <p>Size: ${item.size}</p>
                 <p>Quantity: ${item.quantity}</p>
-                <p>${formatPrice(item.price)}</p>
+                <p>${formatPrice(item.price * item.quantity)}</p>
             </div>
         `;
         orderItems.appendChild(orderItem);
@@ -46,53 +51,31 @@ function displayOrderItems() {
 
     // Update totals
     const totals = calculateTotals();
-    const subtotalElement = document.getElementById('subtotal');
-    const totalElement = document.getElementById('total');
-    
-    if (subtotalElement) {
-        subtotalElement.textContent = formatPrice(totals.subtotal);
-    }
-    
-    if (totalElement) {
-        totalElement.textContent = formatPrice(totals.total);
-    }
+    updateTotalsDisplay(totals);
 }
 
-// Format card number input
-function formatCardNumber(input) {
-    let value = input.value.replace(/\D/g, '');
-    let formattedValue = '';
-    
-    for (let i = 0; i < value.length; i++) {
-        if (i > 0 && i % 4 === 0) {
-            formattedValue += ' ';
+// Update totals display
+function updateTotalsDisplay(totals) {
+    const elements = {
+        subtotal: document.getElementById('subtotal'),
+        gst: document.getElementById('gst'),
+        total: document.getElementById('total')
+    };
+
+    Object.entries(elements).forEach(([key, element]) => {
+        if (element) {
+            element.textContent = formatPrice(totals[key]);
+        } else {
+            console.error(`Could not find ${key} element`);
         }
-        formattedValue += value[i];
-    }
-    
-    input.value = formattedValue;
-}
-
-// Format expiry date input
-function formatExpiryDate(input) {
-    let value = input.value.replace(/\D/g, '');
-    
-    if (value.length >= 2) {
-        value = value.slice(0, 2) + '/' + value.slice(2, 4);
-    }
-    
-    input.value = value;
-}
-
-// Format CVV input
-function formatCVV(input) {
-    input.value = input.value.replace(/\D/g, '').slice(0, 3);
+    });
 }
 
 // Show notification
-function showNotification(message) {
+function showNotification(message, type = 'success') {
+    console.log(`${type} notification:`, message);
     const notification = document.createElement('div');
-    notification.className = 'notification';
+    notification.className = `notification ${type}`;
     notification.textContent = message;
     document.body.appendChild(notification);
     
@@ -101,116 +84,155 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Validate form data
-function validateForm(formData) {
-    // Basic validation for required fields
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone ||
-        !formData.address || !formData.city || !formData.state || !formData.zip) {
-        showNotification('Please fill all required fields');
+// Show error notification
+function showError(message) {
+    showNotification(message, 'error');
+}
+
+// Validate individual input
+function validateInput(input, errorMessage) {
+    if (!input) {
+        console.error('Validation failed: Input element not found');
         return false;
     }
-    
-    // Payment method specific validation
-    switch (formData.paymentMethod) {
-        case 'card':
-            if (!formData.cardNumber || formData.cardNumber.length !== 16) {
-                showNotification('Please enter a valid card number');
-                return false;
-            }
-            if (!formData.expiry || !formData.expiry.match(/^(0[1-9]|1[0-2])\/([0-9]{2})$/)) {
-                showNotification('Please enter a valid expiry date (MM/YY)');
-                return false;
-            }
-            if (!formData.cvv || formData.cvv.length !== 3) {
-                showNotification('Please enter a valid CVV');
-                return false;
-            }
-            if (!formData.cardName) {
-                showNotification('Please enter the name on card');
-                return false;
-            }
+
+    const formGroup = input.closest('.form-group');
+    if (!formGroup) {
+        console.error('Validation failed: Form group not found for input', input.id);
+        return false;
+    }
+
+    const value = input.value.trim();
+    let isValid = true;
+    let customMessage = errorMessage;
+
+    // Custom validation rules
+    switch (input.id) {
+        case 'email':
+            isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            customMessage = isValid ? '' : 'Please enter a valid email address';
             break;
-        case 'upi':
-            if (!formData.upiId || !formData.upiId.includes('@')) {
-                showNotification('Please enter a valid UPI ID');
-                return false;
-            }
+        case 'phone':
+            isValid = /^\d{10}$/.test(value);
+            customMessage = isValid ? '' : 'Please enter a valid 10-digit phone number';
             break;
-        case 'cod':
-            // No additional validation needed for COD
+        case 'zip':
+            isValid = /^\d{6}$/.test(value);
+            customMessage = isValid ? '' : 'Please enter a valid 6-digit ZIP code';
+            break;
+        case 'cardNumber':
+            isValid = /^\d{16}$/.test(value.replace(/\s/g, ''));
+            customMessage = isValid ? '' : 'Please enter a valid 16-digit card number';
+            break;
+        case 'expiry':
+            isValid = /^(0[1-9]|1[0-2])\/([0-9]{2})$/.test(value);
+            customMessage = isValid ? '' : 'Please enter a valid expiry date (MM/YY)';
+            break;
+        case 'cvv':
+            isValid = /^\d{3}$/.test(value);
+            customMessage = isValid ? '' : 'Please enter a valid 3-digit CVV';
             break;
         default:
-            showNotification('Please select a payment method');
-            return false;
+            isValid = value.length > 0;
     }
-    return true;
+
+    // Update UI
+    let errorDiv = formGroup.querySelector('.error-message');
+    if (!isValid) {
+        input.classList.add('error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            formGroup.appendChild(errorDiv);
+        }
+        errorDiv.textContent = customMessage;
+    } else {
+        input.classList.remove('error');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+
+    return isValid;
 }
 
 // Handle form submission
 function handleFormSubmit(event) {
-    event.preventDefault();
-    console.log('Form submitted');
+    if (event) {
+        event.preventDefault();
+    }
+    console.log('Processing form submission...');
 
-    // Check if payment method is selected
-    const paymentMethodElement = document.querySelector('input[name="payment-method"]:checked');
-    if (!paymentMethodElement) {
-        showNotification('Please select a payment method');
+    // Check if cart is empty
+    if (cart.length === 0) {
+        showError('Your cart is empty!');
         return;
     }
-    
-    const paymentMethod = paymentMethodElement.value;
 
-    // Get form data
-    const formData = {
-        firstName: document.getElementById('firstName')?.value || '',
-        lastName: document.getElementById('lastName')?.value || '',
-        email: document.getElementById('email')?.value || '',
-        phone: document.getElementById('phone')?.value || '',
-        address: document.getElementById('address')?.value || '',
-        city: document.getElementById('city')?.value || '',
-        state: document.getElementById('state')?.value || '',
-        zip: document.getElementById('zip')?.value || '',
-        paymentMethod: paymentMethod
-    };
-
-    // Add payment-specific data
-    if (paymentMethod === 'card') {
-        formData.cardNumber = document.getElementById('cardNumber')?.value.replace(/\s/g, '') || '';
-        formData.expiry = document.getElementById('expiry')?.value || '';
-        formData.cvv = document.getElementById('cvv')?.value || '';
-        formData.cardName = document.getElementById('cardName')?.value || '';
-    } else if (paymentMethod === 'upi') {
-        formData.upiId = document.getElementById('upiId')?.value || '';
+    // Get all form inputs
+    const form = document.getElementById('shipping-form');
+    if (!form) {
+        console.error('Shipping form not found');
+        return;
     }
 
-    // Validate form data
-    if (!validateForm(formData)) {
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    console.log('Form data:', data);
+
+    // Validate all required fields
+    let isValid = true;
+    const requiredFields = form.querySelectorAll('input[required]');
+    requiredFields.forEach(input => {
+        if (!validateInput(input, `${input.name} is required`)) {
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        showError('Please fill in all required fields correctly');
         return;
     }
 
     // Show loading state
-    const submitButton = document.querySelector('.place-order-btn');
+    const submitButton = form.querySelector('.place-order-btn');
     if (submitButton) {
         submitButton.classList.add('loading');
         submitButton.disabled = true;
     }
 
     try {
+        // Generate order number
+        const orderNumber = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+        
+        // Save order details
+        const orderDetails = {
+            orderNumber,
+            items: cart,
+            total: calculateTotals().total,
+            shippingDetails: data,
+            orderDate: new Date().toISOString()
+        };
+        localStorage.setItem('lastOrder', JSON.stringify(orderDetails));
+        
         // Clear cart
         localStorage.removeItem('cart');
         cart = [];
         
-        // Show success message
+        // Update cart count
+        if (typeof window.updateCartCount === 'function') {
+            window.updateCartCount();
+        }
+        
         showNotification('Order placed successfully!');
         
-        // Add a small delay before redirecting to ensure notification is seen
+        // Redirect to confirmation page
         setTimeout(() => {
-            console.log('Redirecting to order-confirmation.html');
             window.location.href = 'order-confirmation.html';
-        }, 1000);
+        }, 1500);
     } catch (error) {
         console.error('Error processing order:', error);
-        showNotification('An error occurred. Please try again.');
+        showError('An error occurred. Please try again.');
         
         if (submitButton) {
             submitButton.classList.remove('loading');
@@ -221,89 +243,104 @@ function handleFormSubmit(event) {
 
 // Initialize checkout page
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM content loaded');
+    console.log('Initializing checkout page...');
     
     // Display order items
     displayOrderItems();
     
     // Redirect to cart if cart is empty
     if (cart.length === 0) {
-        console.log('Cart is empty, redirecting to cart.html');
+        console.log('Cart is empty, redirecting to cart page');
         window.location.href = 'cart.html';
         return;
     }
 
-    // Add input formatters
-    const cardNumberInput = document.getElementById('cardNumber');
-    const expiryInput = document.getElementById('expiry');
-    const cvvInput = document.getElementById('cvv');
-
-    if (cardNumberInput) {
-        cardNumberInput.addEventListener('input', function() {
-            formatCardNumber(this);
-        });
-    }
-
-    if (expiryInput) {
-        expiryInput.addEventListener('input', function() {
-            formatExpiryDate(this);
-        });
-    }
-
-    if (cvvInput) {
-        cvvInput.addEventListener('input', function() {
-            formatCVV(this);
-        });
-    }
-
-    // Add form submit handler
+    // Initialize form
     const form = document.getElementById('shipping-form');
     if (form) {
-        console.log('Adding submit event listener to form');
+        console.log('Setting up form handlers');
+        
+        // Handle form submission
         form.addEventListener('submit', handleFormSubmit);
-    } else {
-        console.error('Form with ID "shipping-form" not found');
-    }
-
-    // Payment option switching
-    const paymentOptions = document.querySelectorAll('input[name="payment-method"]');
-    const cardForm = document.getElementById('card-payment-form');
-    const upiForm = document.getElementById('upi-payment-form');
-    const codForm = document.getElementById('cod-payment-form');
-
-    if (cardForm && upiForm && codForm) {
-        // Function to show/hide payment forms
-        function togglePaymentForms(selectedOption) {
-            // Hide all forms first
-            cardForm.style.display = 'none';
-            upiForm.style.display = 'none';
-            codForm.style.display = 'none';
-
-            // Show the selected form
-            switch(selectedOption) {
-                case 'card':
-                    cardForm.style.display = 'block';
-                    break;
-                case 'upi':
-                    upiForm.style.display = 'block';
-                    break;
-                case 'cod':
-                    codForm.style.display = 'block';
-                    break;
-            }
-        }
-
-        // Add event listeners to payment options
-        paymentOptions.forEach(option => {
-            option.addEventListener('change', function() {
-                togglePaymentForms(this.value);
+        
+        // Add real-time validation
+        const inputs = form.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                validateInput(this, `${this.name} is required`);
             });
         });
 
-        // Initialize with default selected payment method
-        const defaultPayment = document.querySelector('input[name="payment-method"]:checked');
-        if (defaultPayment) {
-            togglePaymentForms(defaultPayment.value);
+        // Format card inputs
+        const cardNumber = document.getElementById('cardNumber');
+        if (cardNumber) {
+            cardNumber.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+                this.value = formattedValue;
+            });
         }
+
+        // Format expiry date
+        const expiry = document.getElementById('expiry');
+        if (expiry) {
+            expiry.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                }
+                this.value = value;
+            });
+        }
+    } else {
+        console.error('Shipping form not found');
     }
+
+    // Initialize payment method switching
+    setupPaymentMethods();
 });
+
+// Setup payment methods
+function setupPaymentMethods() {
+    const paymentForms = {
+        card: document.getElementById('card-payment-form'),
+        upi: document.getElementById('upi-payment-form'),
+        cod: document.getElementById('cod-payment-form')
+    };
+
+    const paymentOptions = document.querySelectorAll('input[name="payment-method"]');
+    
+    if (paymentOptions.length === 0) {
+        console.error('No payment method options found');
+        return;
+    }
+
+    function togglePaymentForms(selectedMethod) {
+        console.log('Switching to payment method:', selectedMethod);
+        Object.entries(paymentForms).forEach(([method, form]) => {
+            if (form) {
+                form.style.display = method === selectedMethod ? 'block' : 'none';
+            }
+        });
+    }
+
+    // Add change event listeners
+    paymentOptions.forEach(option => {
+        option.addEventListener('change', () => togglePaymentForms(option.value));
+    });
+
+    // Set initial state
+    const defaultPayment = document.querySelector('input[name="payment-method"]:checked');
+    if (defaultPayment) {
+        togglePaymentForms(defaultPayment.value);
+    } else if (paymentOptions.length > 0) {
+        paymentOptions[0].checked = true;
+        togglePaymentForms(paymentOptions[0].value);
+    }
+}
