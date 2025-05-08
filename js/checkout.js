@@ -204,7 +204,7 @@ function handleFormSubmit(event) {
     try {
         // Generate order number
         const orderNumber = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
-        
+                        
         // Save order details
         const orderDetails = {
             orderNumber,
