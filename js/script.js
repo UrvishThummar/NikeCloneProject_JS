@@ -307,7 +307,7 @@ function setupHeaderSearch() {
             
             displaySearchResults(filteredProducts);
         }
-    });
+     });
     
     // Handle Enter key in search input
     headerSearchInput.addEventListener('keydown', function(event) {
