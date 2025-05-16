@@ -116,7 +116,7 @@
                 <!-- User Profile Container (hidden by default) -->
                 <div id="profile-container" style="display: none;">
                     <a href="#" id="profile-link" class="profile-link">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-user" style="margin-top:-4px ; font-size: 15px;"></i>
                     </a>
                     <div id="profile-dropdown" class="profile-dropdown">
                         <div class="profile-info">
@@ -142,6 +142,57 @@
             <a class="navbar-brand" href="index.html">
                 <img src="img/image.png" alt="Nike Logo" class="nike-logo">
             </a>
+
+            <!-- Toggler Button for Mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main Menu Items -->
+            <div class="collapse navbar-shrink navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="features.html">New & Featured</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Men</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Women</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kids</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sale</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">SNKRS</a>
+                    </li>
+                </ul>
+
+                <!-- Right Side Elements: Search, Favorites, Cart -->
+                <div class="nav-icons">
+                    <!-- Search Box -->
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search" style="display:none;" />
+                        <span class="search-icon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+
+                    <!-- Favorites Icon -->
+                    <a href="#" class="favorites">
+                        <i class="far fa-heart"></i>
+                    </a>
+
+                    <!-- Shopping Bag Icon -->
+                    <a href="#" class="cart">
+                        <i class="fas fa-shopping-bag"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 

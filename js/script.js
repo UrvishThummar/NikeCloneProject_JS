@@ -9,6 +9,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Animated Search Bar Toggle
+    const searchBox = document.querySelector('.search-box');
+    const searchInput = document.getElementById('searchInput');
+    const searchIcon = document.querySelector('.search-box .search-icon');
+
+    if (searchBox && searchInput && searchIcon) {
+        // Show search bar on icon click
+        searchIcon.addEventListener('click', function (e) {
+            e.stopPropagation();
+            searchBox.classList.add('active');
+            searchInput.style.display = 'block';
+            setTimeout(() => {
+                searchInput.focus();
+            }, 200);
+        });
+
+        // Hide search bar when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!searchBox.contains(e.target)) {
+                searchBox.classList.remove('active');
+                searchInput.value = '';
+                setTimeout(() => {
+                    searchInput.style.display = 'none';
+                }, 300);
+            }
+        });
+
+        // Hide on Escape key
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                searchBox.classList.remove('active');
+                searchInput.value = '';
+                setTimeout(() => {
+                    searchInput.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
     // Header Search Functionality
     setupHeaderSearch();
 });

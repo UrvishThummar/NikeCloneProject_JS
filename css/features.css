@@ -415,17 +415,25 @@ main {
     gap: 10px;
 }
 
-.add-cart {
-    background-color: #111;
+.favorite-btn {
+    background-color: #fff;
+    color: #111;
+    border: 1px solid #111;
     flex: 1;
-    color:#fff;
     border-radius: 100px;
-    &:hover{
-        background-color: #fff;
-        color: #000;
-        border: 1px solid black;
-        transition: 0.4s ease;
-    }
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background-color: #111;
+    color: #fff;
+}
+
+.favorite-btn.favorited {
+    background-color: #111;
+    color: #fff;
 }
 
 .view-detail {
@@ -434,11 +442,14 @@ main {
     border: 1px solid #111;
     flex: 1;
     border-radius: 100px;
-    &:hover{
-        background-color: #111;
-        color: #fff;
-        transition: 0.4s ease;
-    }
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-detail:hover {
+    background-color: #111;
+    color: #fff;
 }
 
 .wishlist {

@@ -801,9 +801,8 @@ function renderProducts(productList) {
                     <span>${product.rating}</span>
                 </div>
                 <div class="button-group">
-                    <button class="add-cart" data-product-id="${product.id}">Add to Cart</button>
+                    <button class="favorite-btn" data-product-id="${product.id}">Favorite</button>
                     <button class="view-detail" data-product-id="${product.id}">View Detail</button>
-                    <button class="wishlist" data-product-id="${product.id}">♡</button>
                 </div>
             </div>
         `;
@@ -825,69 +824,49 @@ function addProductCardEventListeners() {
         });
     });
     
-    // Add event listeners for add to cart buttons
-    document.querySelectorAll('.add-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            addToCart(productId);
-        });
-    });
-    
-    // Add event listeners for wishlist buttons
-    document.querySelectorAll('.wishlist').forEach(button => {
+    // Add event listeners for favorite buttons
+    document.querySelectorAll('.favorite-btn').forEach(button => {
         button.addEventListener('click', function() {
             const productId = this.getAttribute('data-product-id');
             addToWishlist(productId);
-            this.textContent = '❤'; // Change to filled heart
-            this.style.color = 'red';
+            this.textContent = 'Favorited';
+            this.classList.add('favorited');
         });
     });
-}
-
-// Function to add product to cart
-function addToCart(productId) {
-    // Find the product by ID
-    const product = products.find(p => p.id == productId);
-    if (!product) {
-        showNotification("Product not found");
-        return;
-    }
-    // Retrieve existing cart or initialize
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    // Check if product is already in cart
-    const existingItem = cart.find(item => item.id == product.id);
-    if (existingItem) {
-        showNotification(`${product.name} is already in your cart!`);
-        return;
-    } else {
-        cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: 1
-        });
-        showNotification(`${product.name} added to cart!`);
-    }
-    // Save back to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Update cart count if the function exists
-    if (typeof updateCartCount === 'function') {
-        updateCartCount();
-    }
 }
 
 // Function to add product to wishlist
 function addToWishlist(productId) {
     // Find the product by ID
     const product = products.find(p => p.id == productId);
-    if (product) {
-        // In a real app, you would add to wishlist state/storage here
-        showNotification(`${product.name} added to wishlist!`);
-    } else {
+    if (!product) {
         showNotification("Product not found");
+        return;
     }
+    
+    // Retrieve existing wishlist or initialize
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    
+    // Check if product is already in wishlist
+    const existingItem = wishlist.find(item => item.id == product.id);
+    if (existingItem) {
+        showNotification(`${product.name} is already in your wishlist!`);
+        return;
+    }
+    
+    // Add to wishlist
+    wishlist.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        rating: product.rating
+    });
+    
+    // Save to localStorage
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    showNotification(`${product.name} added to wishlist!`);
 }
 
 // Function to navigate to product detail page

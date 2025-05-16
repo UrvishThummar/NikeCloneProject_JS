@@ -175,7 +175,7 @@ body {
 }
 
 /* Add to Cart Button */
-.add-to-cart-btn {
+#add-to-cart-btn {
     margin-top: 20px;
     padding: 16px 32px;
     background-color: var(--primary-color);
@@ -188,9 +188,11 @@ body {
     transition: var(--transition);
 }
 
-.add-to-cart-btn:hover {
-    background-color: #333;
+#add-to-cart-btn:hover {
+    background-color: white;
     transform: translateY(-2px);
+    color: black;
+    border: 1px solid black;
 }
 
 /* Product Description */
