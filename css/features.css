@@ -415,25 +415,28 @@ main {
     gap: 10px;
 }
 
-.favorite-btn {
-    background-color: #fff;
-    color: #111;
-    border: 1px solid #111;
+.add-favorite {
+    background-color: #111;
     flex: 1;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
     border-radius: 100px;
-    padding: 8px 16px;
     cursor: pointer;
+    font-weight: 500;
     transition: all 0.3s ease;
 }
 
-.favorite-btn:hover {
-    background-color: #111;
-    color: #fff;
+.add-favorite:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid black;
 }
 
-.favorite-btn.favorited {
-    background-color: #111;
-    color: #fff;
+.add-favorite.added {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
 }
 
 .view-detail {
@@ -442,14 +445,64 @@ main {
     border: 1px solid #111;
     flex: 1;
     border-radius: 100px;
-    padding: 8px 16px;
+    padding: 10px 15px;
     cursor: pointer;
+    font-weight: 500;
     transition: all 0.3s ease;
 }
 
 .view-detail:hover {
     background-color: #111;
     color: #fff;
+}
+
+.remove-favorite {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.remove-favorite:hover {
+    background-color: #cc0000;
+}
+
+/* Update the favorites icon in navbar */
+.favorites {
+    position: relative;
+    color: #111;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.favorites:hover {
+    color: #ff4444;
+}
+
+.favorites i {
+    font-size: 24px;
+}
+
+/* Add animation for the heart icon */
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.favorites i:hover {
+    animation: heartBeat 0.3s ease-in-out;
 }
 
 .wishlist {

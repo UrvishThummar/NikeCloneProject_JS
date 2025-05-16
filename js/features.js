@@ -801,7 +801,7 @@ function renderProducts(productList) {
                     <span>${product.rating}</span>
                 </div>
                 <div class="button-group">
-                    <button class="favorite-btn" data-product-id="${product.id}">Favorite</button>
+                    <button class="add-favorite" data-product-id="${product.id}">Add to Favorite</button>
                     <button class="view-detail" data-product-id="${product.id}">View Detail</button>
                 </div>
             </div>
@@ -824,13 +824,14 @@ function addProductCardEventListeners() {
         });
     });
     
-    // Add event listeners for favorite buttons
-    document.querySelectorAll('.favorite-btn').forEach(button => {
+    // Add event listeners for add to favorite buttons
+    document.querySelectorAll('.add-favorite').forEach(button => {
         button.addEventListener('click', function() {
             const productId = this.getAttribute('data-product-id');
             addToWishlist(productId);
-            this.textContent = 'Favorited';
-            this.classList.add('favorited');
+            this.textContent = 'Added to Favorites';
+            this.style.backgroundColor = '#4CAF50';
+            this.style.color = 'white';
         });
     });
 }
@@ -864,7 +865,7 @@ function addToWishlist(productId) {
         rating: product.rating
     });
     
-    // Save to localStorage
+    // Save back to localStorage
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     showNotification(`${product.name} added to wishlist!`);
 }
