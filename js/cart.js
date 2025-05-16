@@ -66,13 +66,28 @@ function updateCartDisplay() {
                 <div class="cart-item-details">
                     <div>
                         <h3 class="cart-item-name">${item.name}</h3>
-                        <p class="cart-item-color">Color: ${item.color}</p>
-                        <p class="cart-item-size">Size: ${item.size}</p>
-                        <p class="cart-item-price">
-                            <span class="unit-price">₹${item.price.toFixed(2)}</span> × 
-                            <span class="quantity">${item.quantity}</span> = 
-                            <span class="total-price">₹${(item.price * item.quantity).toFixed(2)}</span>
-                        </p>
+                        <div class="item-details-container">
+                            <div class="details-row">
+                                <span class="details-label">Color:</span>
+                                <span class="details-value">${item.color}</span>
+                            </div>
+                            <div class="details-row">
+                                <span class="details-label">Size:</span>
+                                <span class="details-value">${item.size}</span>
+                            </div>
+                            <div class="details-row">
+                                <span class="details-label">Price:</span>
+                                <span class="unit-price">₹${item.price.toFixed(2)}</span>
+                            </div>
+                            <div class="details-row">
+                                <span class="details-label">Quantity:</span>
+                                <span class="quantity">${item.quantity}</span>
+                            </div>
+                            <div class="details-row total">
+                                <span class="details-label">Total:</span>
+                                <span class="total-price">₹${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="cart-item-quantity">

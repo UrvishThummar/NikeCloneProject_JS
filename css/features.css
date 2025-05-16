@@ -27,6 +27,109 @@
     padding: 5px 20px;
 }
 
+.profile-container {
+    position: relative;
+    z-index: 1000;
+    display: inline-block;
+}
+
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.profile-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-link.active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 7%;
+    left: 70%;
+    transform: translateY(0.5rem);
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+
+.profile-dropdown.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.profile-email {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.profile-actions a,
+.profile-actions button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.profile-actions a:hover,
+.profile-actions button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.profile-actions button i {
+    color: var(--error-color);
+}
+
 .container-fluid {
     display: flex;
     align-items: center;
@@ -35,6 +138,7 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
+    height: 50PX;
 }
 
 .navbar-collapse {
@@ -76,11 +180,11 @@
 }
 
 .jordan-logo {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     width: 24px;
-    margin-left: 40px;
+    margin-left: 10px;
     height: auto;
-    margin-bottom: -10px;
+    /* margin-bottom: -10px; */
 }
 
 .nav-item {
@@ -88,9 +192,9 @@
 }
 
 .topmenu {
-    margin-bottom: 10px;
+    margin-top: 15px;
     font-weight: 700;
-    margin-right: 45px;
+    /* margin-right: 45px; */
 }
 
 .nav-link {
@@ -433,11 +537,7 @@ main {
     border: 1px solid black;
 }
 
-.add-favorite.added {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-}
+
 
 .view-detail {
     background-color: #fff;
@@ -457,7 +557,7 @@ main {
 }
 
 .remove-favorite {
-    background-color: #ff4444;
+    background-color: #111;
     color: white;
     border: none;
     flex: 1;
@@ -466,10 +566,14 @@ main {
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease;
+    font-size: 12px;
 }
 
 .remove-favorite:hover {
-    background-color: #cc0000;
+    background-color: white ;
+    font-weight: 700;
+    color: #111;
+    border: 1px solid #111;
 }
 
 /* Update the favorites icon in navbar */
@@ -481,7 +585,7 @@ main {
 }
 
 .favorites:hover {
-    color: #ff4444;
+    color: #111;
 }
 
 .favorites i {

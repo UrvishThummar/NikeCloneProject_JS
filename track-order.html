@@ -3,14 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail - Nike</title>
+    <title>Track Order - Nike</title>
     <!-- favicon -->
     <link href="img/image.png" rel="icon" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/product-detail.css">
+    <style>
+        .tracking-container {
+            max-width: 800px;
+            margin: 120px auto 40px;
+            padding: 40px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .tracking-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tracking-form {
+            margin-bottom: 30px;
+        }
+
+        .tracking-input {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .track-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .track-btn:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+
+        .tracking-status {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .status-timeline {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            z-index: 1;
+        }
+
+        .status-icon.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .status-info {
+            flex-grow: 1;
+        }
+
+        .status-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .status-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .tracking-container {
+                margin-top: 100px;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Top Navigation -->
@@ -43,7 +145,7 @@
                             <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
     </div>
@@ -55,113 +157,56 @@
             <a class="navbar-brand" href="index.html">
                 <img src="img/image.png" alt="Nike Logo" class="nike-logo">
             </a>
-
-            <!-- Toggler Button for Mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Main Menu Items -->
-            <div class="collapse navbar-shrink navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="features.html">New & Featured</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Men</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Women</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kids</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sale</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">SNKRS</a>
-                    </li>
-                </ul>
-
-                <!-- Right Side Elements: Search, Favorites, Cart -->
-                <div class="nav-icons">
-                    <!-- Search Box -->
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search">
-                        <span class="search-icon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </div>
-
-                    <!-- Favorites Icon -->
-                    <a href="#" class="favorites">
-                        <i class="far fa-heart"></i>
-                    </a>
-
-                    <!-- Shopping Bag Icon -->
-                    <a href="cart.html" class="cart">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </nav>
 
-    <!-- Product Detail Section -->
-    <div class="product-detail-container">
-        <div class="product-detail-wrapper">
-            <!-- Product Images Section -->
-            <div class="product-images-section">
-                <div class="main-image-container">
-                    <img id="main-product-image" src="" alt="Product Image">
-                </div>
-                <div class="thumbnail-container" id="thumbnail-container">
-                    <!-- Thumbnails will be added here dynamically -->
-                </div>
-            </div>
+    <!-- Tracking Section -->
+    <div class="tracking-container">
+        <h1 class="tracking-title">Track Your Order</h1>
+        <form class="tracking-form" id="trackingForm">
+            <input type="text" class="tracking-input" id="orderNumber" placeholder="Enter your order number" required>
+            <button type="submit" class="track-btn">Track Order</button>
+        </form>
 
-            <!-- Product Info Section -->
-            <div class="product-info-section">
-                <div class="product-category" id="product-category"></div>
-                <h1 class="product-name" id="product-name"></h1>
-                <div class="product-price" id="product-price"></div>
-                
-                <!-- Color Selection -->
-                <div class="color-selection">
-                    <h3>Color</h3>
-                    <div class="color-options" id="color-options">
-                        <!-- Color options will be added here dynamically -->
+        <div class="tracking-status" id="trackingStatus">
+            <div class="status-timeline">
+                <div class="status-step">
+                    <div class="status-icon active">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="status-info">
+                        <div class="status-title">Order Placed</div>
+                        <div class="status-date">March 15, 2024</div>
                     </div>
                 </div>
-
-                <!-- Size Selection -->
-                <div class="size-selection">
-                    <h3>Size</h3>
-                    <div class="size-options" id="size-options">
-                        <!-- Size options will be added here dynamically -->
+                <div class="status-step">
+                    <div class="status-icon active">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="status-info">
+                        <div class="status-title">Order Confirmed</div>
+                        <div class="status-date">March 15, 2024</div>
                     </div>
                 </div>
-
-                <!-- Add to Cart Button -->
-                <button class="add-to-cart" id="add-to-cart-btn">Add to Cart</button>
-
-                <!-- Product Description -->
-                <div class="product-description">
-                    <h3>Description</h3>
-                    <p id="product-description"></p>
+                <div class="status-step">
+                    <div class="status-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="status-info">
+                        <div class="status-title">Shipped</div>
+                        <div class="status-date">Pending</div>
+                    </div>
+                </div>
+                <div class="status-step">
+                    <div class="status-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="status-info">
+                        <div class="status-title">Delivered</div>
+                        <div class="status-date">Pending</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Related Products Section -->
-    <div class="related-products-section">
-        <h2>You May Also Like</h2>
-        <div class="related-products-container" id="related-products-container">
-            <!-- Related products will be added here dynamically -->
         </div>
     </div>
 
@@ -219,9 +264,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/cart-utils.js"></script>
-    <script src="js/product-detail.js"></script>
-    <script src="js/user-profile.js"></script>
+    <script src="js/track-order.js"></script>
 </body>
-</html>
+</html> 

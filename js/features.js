@@ -830,7 +830,8 @@ function addProductCardEventListeners() {
             const productId = this.getAttribute('data-product-id');
             addToWishlist(productId);
             this.textContent = 'Added to Favorites';
-            this.style.backgroundColor = '#4CAF50';
+            this.style.backgroundColor = '#111';
+            this.style.fontSize = '15px';
             this.style.color = 'white';
         });
     });
