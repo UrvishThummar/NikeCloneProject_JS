@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let users = [];
             const existingUsers = localStorage.getItem('nikeUsers');
-
+            
             if (existingUsers) {
                 try {
                     users = JSON.parse(existingUsers);
