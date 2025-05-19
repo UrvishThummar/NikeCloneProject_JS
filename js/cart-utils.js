@@ -32,3 +32,29 @@ document.addEventListener('DOMContentLoaded', function() {
 window.getCart = getCart;
 window.saveCart = saveCart;
 window.updateCartCount = updateCartCount; 
+
+//back-to-top
+
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.getElementById('backToTop');
+    
+    // Show button when user scrolls down 300px
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
+    });
+    
+    // Smooth scroll to top when button is clicked
+    backToTopButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Smooth scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  });
